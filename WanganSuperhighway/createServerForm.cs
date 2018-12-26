@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace WanganSuperhighway
 {
@@ -16,6 +17,21 @@ namespace WanganSuperhighway
         public createServerForm()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Executes a process as the Administrator.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="commandLine"></param>
+        public void ExecuteAsAdmin(string fileName, string commandLine)
+        {
+            Process proc = new Process();
+            proc.StartInfo.FileName = fileName;
+            proc.StartInfo.Arguments = commandLine;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.Verb = "runas";
+            proc.Start();
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
@@ -28,12 +44,23 @@ namespace WanganSuperhighway
             {
                 MessageBox.Show("You need to enter a value for the game name.");
             }
-            else { 
+            else {
+
+                try
+                {
+                    string command = "join " + textBoxNetworkId.Text;
+                    ExecuteAsAdmin("C:\\Program Files (x86)\\ZeroTier\\One\\zerotier-cli.bat", command);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             textBoxNetworkId.ReadOnly = true;
             textBoxGameName.ReadOnly = true;
             buttonCreate.Visible = false;
             buttonStart.Enabled = true;
             gameStart = true;
+            listBox1.Items.Add(Form1.username);            
             }
         }
 
@@ -42,6 +69,8 @@ namespace WanganSuperhighway
             if (gameStart == true)
             {
                 gameStart = false;
+                string command = "leave " + textBoxNetworkId.Text;
+                ExecuteAsAdmin("C:\\Program Files (x86)\\ZeroTier\\One\\zerotier-cli.bat", command);
                 this.Close();
             }
             else
