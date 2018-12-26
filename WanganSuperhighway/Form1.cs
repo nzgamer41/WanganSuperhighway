@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace WanganSuperhighway
 {
     public partial class Form1 : Form
     {
+        List<gameInstance> serverList = new List<gameInstance>();
         public static string username;
         public static string tpLocation;
         public static StreamReader reader;
@@ -20,6 +23,25 @@ namespace WanganSuperhighway
         public Form1()
         {
             InitializeComponent();
+            listBoxServerBrowser.Items.Add("Game Name:".PadRight(20) + "# of players:".PadRight(16) + "Network ID".PadRight(26) + "Server ID".PadRight(10));
+            var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+            var client = new MongoClient(connectionString);
+
+            IMongoDatabase db = client.GetDatabase("wangansuperhighway");
+            IMongoCollection<BsonDocument> collection = db.GetCollection<BsonDocument>("servers");
+            var resultDoc = collection.Find(new BsonDocument()).ToList();
+            foreach (var item in resultDoc)
+            {
+                string name = item.GetElement("name").Value.ToString();
+                string players = item.GetElement("players").Value.ToString();
+                string networkID = item.GetElement("networkID").Value.ToString();
+                string serverID = item.GetElement("serverID").Value.ToString();
+                gameInstance gameServer = new gameInstance();
+                gameServer.gameName = name;
+                gameServer.networkId = networkID;
+                serverList.Add(gameServer);
+                listBoxServerBrowser.Items.Add(name.PadRight(20) + players.PadRight(16) + networkID.PadRight(26) + serverID.PadRight(10));
+            }
             try
             {
                 if (File.Exists("config.txt"))
@@ -63,7 +85,7 @@ namespace WanganSuperhighway
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             createServerForm cForm = new createServerForm();
-            cForm.Show();
+            cForm.ShowDialog();
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -74,7 +96,7 @@ namespace WanganSuperhighway
         private void button1_Click(object sender, EventArgs e)
         {
             settingsForm sForm = new settingsForm();
-            sForm.Show();
+            sForm.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -92,7 +114,8 @@ namespace WanganSuperhighway
                     Application.Exit();
                 }
             }
-
+            
+            // TODO: add code that talks to database
         }
     }
 }

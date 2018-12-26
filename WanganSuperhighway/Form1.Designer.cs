@@ -36,10 +36,12 @@
             // 
             // listBoxServerBrowser
             // 
+            this.listBoxServerBrowser.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxServerBrowser.FormattingEnabled = true;
+            this.listBoxServerBrowser.ItemHeight = 19;
             this.listBoxServerBrowser.Location = new System.Drawing.Point(13, 13);
             this.listBoxServerBrowser.Name = "listBoxServerBrowser";
-            this.listBoxServerBrowser.Size = new System.Drawing.Size(965, 394);
+            this.listBoxServerBrowser.Size = new System.Drawing.Size(965, 384);
             this.listBoxServerBrowser.TabIndex = 0;
             // 
             // buttonCreate
