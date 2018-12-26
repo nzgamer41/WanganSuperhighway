@@ -127,7 +127,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "createServerForm";
-            this.Text = "createServerForm";
+            this.Text = "Wangan Superhighway";
             this.ResumeLayout(false);
             this.PerformLayout();
 

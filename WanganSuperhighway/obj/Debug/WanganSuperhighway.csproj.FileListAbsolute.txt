@@ -22,3 +22,4 @@ C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\bin\Debug
 C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\bin\Debug\MongoDB.Driver.Core.xml
 C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.connectForm.resources
 C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.csproj.CopyComplete
+C:\Users\Alex Cheer\Source\Repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.aboutForm.resources

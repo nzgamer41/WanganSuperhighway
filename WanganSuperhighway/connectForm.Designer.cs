@@ -130,7 +130,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "connectForm";
-            this.Text = "connectForm";
+            this.Text = "Wangan Superhighway";
             this.Load += new System.EventHandler(this.connectForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

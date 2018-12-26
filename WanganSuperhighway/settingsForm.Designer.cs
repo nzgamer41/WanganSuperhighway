@@ -123,7 +123,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "settingsForm";
-            this.Text = "settingsForm";
+            this.Text = "Wangan Superhighway";
             this.ResumeLayout(false);
             this.PerformLayout();
 

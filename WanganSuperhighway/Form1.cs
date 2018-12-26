@@ -77,7 +77,7 @@ namespace WanganSuperhighway
         {
             int currentPlayers = int.Parse(serverList[listBoxServerBrowser.SelectedIndex - 1].Players);
             currentPlayers++;
-            var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+            var connectionString = "mongodb://wgshuser:wangansuperhighway1@ds263590.mlab.com:63590/wangansuperhighway";
             var client = new MongoClient(connectionString);
 
             IMongoDatabase db = client.GetDatabase("wangansuperhighway");
@@ -119,7 +119,7 @@ namespace WanganSuperhighway
                 }
             }
 
-            var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+            var connectionString = "mongodb://wgshuser:wangansuperhighway1@ds263590.mlab.com:63590/wangansuperhighway";
             var client = new MongoClient(connectionString);
 
             IMongoDatabase db = client.GetDatabase("wangansuperhighway");
@@ -151,6 +151,17 @@ namespace WanganSuperhighway
             {
 
             }
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void buttonAbout_Click(object sender, EventArgs e)
+        {
+            aboutForm aForm = new aboutForm();
+            aForm.ShowDialog();
         }
     }
 }

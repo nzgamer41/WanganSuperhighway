@@ -67,7 +67,7 @@ namespace WanganSuperhighway
             else {
                 try
                 {
-                    var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+                    var connectionString = "mongodb://wgshuser:wangansuperhighway1@ds263590.mlab.com:63590/wangansuperhighway";
                     var client = new MongoClient(connectionString);
 
                     IMongoDatabase db = client.GetDatabase("wangansuperhighway");
@@ -105,7 +105,7 @@ namespace WanganSuperhighway
         {
             if (gameStart == true)
             {
-                var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+                var connectionString = "mongodb://wgshuser:wangansuperhighway1@ds263590.mlab.com:63590/wangansuperhighway";
                 var client = new MongoClient(connectionString);
 
                 IMongoDatabase db = client.GetDatabase("wangansuperhighway");
