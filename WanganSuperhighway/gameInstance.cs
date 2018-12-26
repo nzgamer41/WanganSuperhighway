@@ -13,15 +13,15 @@ namespace WanganSuperhighway
         public gameInstance() {
         }
 
-        public string networkId
+        public string NetworkId
         {
             get { return _networkId; }
-            set { _networkId = networkId; }
+            set { _networkId = value; }
         }
-        public string gameName
+        public string GameName
         {
             get { return _gameName; }
-            set { _gameName = gameName; }
+            set { _gameName = value; }
         }
     }
 }

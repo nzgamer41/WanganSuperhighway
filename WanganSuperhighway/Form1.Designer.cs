@@ -43,6 +43,7 @@
             this.listBoxServerBrowser.Name = "listBoxServerBrowser";
             this.listBoxServerBrowser.Size = new System.Drawing.Size(965, 384);
             this.listBoxServerBrowser.TabIndex = 0;
+            this.listBoxServerBrowser.SelectedIndexChanged += new System.EventHandler(this.listBoxServerBrowser_SelectedIndexChanged);
             // 
             // buttonCreate
             // 

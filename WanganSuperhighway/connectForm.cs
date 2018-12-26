@@ -20,6 +20,8 @@ namespace WanganSuperhighway
         private void connectForm_Load(object sender, EventArgs e)
         {
             listBox2.Items.Add(Form1.username);
+            textBoxGameName.Text = Form1.selName;
+            textBoxNetworkId.Text = Form1.selId;
         }
     }
 }

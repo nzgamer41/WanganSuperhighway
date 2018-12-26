@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace WanganSuperhighway
 {
@@ -17,8 +19,9 @@ namespace WanganSuperhighway
         public createServerForm()
         {
             InitializeComponent();
+           
         }
-
+       
         /// <summary>
         /// Executes a process as the Administrator.
         /// </summary>
@@ -45,9 +48,22 @@ namespace WanganSuperhighway
                 MessageBox.Show("You need to enter a value for the game name.");
             }
             else {
-
                 try
                 {
+                    var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+                    var client = new MongoClient(connectionString);
+
+                    IMongoDatabase db = client.GetDatabase("wangansuperhighway");
+                    IMongoCollection<BsonDocument> collection = db.GetCollection<BsonDocument>("servers");
+
+                    var document = new BsonDocument
+                    {
+                    {"name", BsonValue.Create(textBoxGameName.Text)},
+                    {"players", new BsonString("1")},
+                    {"networkID", new BsonString(textBoxNetworkId.Text)}
+                    };
+                    collection.InsertOne(document);
+
                     string command = "join " + textBoxNetworkId.Text;
                     ExecuteAsAdmin("C:\\Program Files (x86)\\ZeroTier\\One\\zerotier-cli.bat", command);
                 }
@@ -68,6 +84,17 @@ namespace WanganSuperhighway
         {
             if (gameStart == true)
             {
+                var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+                var client = new MongoClient(connectionString);
+
+                IMongoDatabase db = client.GetDatabase("wangansuperhighway");
+                IMongoCollection<BsonDocument> collection = db.GetCollection<BsonDocument>("servers");
+
+
+                var filter = Builders<BsonDocument>.Filter.Eq("networkID", textBoxNetworkId.Text);
+                var result = collection.DeleteOne(filter);
+
+
                 gameStart = false;
                 string command = "leave " + textBoxNetworkId.Text;
                 ExecuteAsAdmin("C:\\Program Files (x86)\\ZeroTier\\One\\zerotier-cli.bat", command);

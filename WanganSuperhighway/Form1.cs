@@ -18,30 +18,15 @@ namespace WanganSuperhighway
         List<gameInstance> serverList = new List<gameInstance>();
         public static string username;
         public static string tpLocation;
+        public static string selName;
+        public static string selId;
         public static StreamReader reader;
         public static StreamWriter writer;
+
         public Form1()
         {
             InitializeComponent();
-            listBoxServerBrowser.Items.Add("Game Name:".PadRight(20) + "# of players:".PadRight(16) + "Network ID".PadRight(26) + "Server ID".PadRight(10));
-            var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
-            var client = new MongoClient(connectionString);
-
-            IMongoDatabase db = client.GetDatabase("wangansuperhighway");
-            IMongoCollection<BsonDocument> collection = db.GetCollection<BsonDocument>("servers");
-            var resultDoc = collection.Find(new BsonDocument()).ToList();
-            foreach (var item in resultDoc)
-            {
-                string name = item.GetElement("name").Value.ToString();
-                string players = item.GetElement("players").Value.ToString();
-                string networkID = item.GetElement("networkID").Value.ToString();
-                string serverID = item.GetElement("serverID").Value.ToString();
-                gameInstance gameServer = new gameInstance();
-                gameServer.gameName = name;
-                gameServer.networkId = networkID;
-                serverList.Add(gameServer);
-                listBoxServerBrowser.Items.Add(name.PadRight(20) + players.PadRight(16) + networkID.PadRight(26) + serverID.PadRight(10));
-            }
+            listBoxServerBrowser.Items.Add("Game Name:".PadRight(20) + "# of players:".PadRight(16) + "Network ID".PadRight(26));
             try
             {
                 if (File.Exists("config.txt"))
@@ -90,7 +75,8 @@ namespace WanganSuperhighway
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-
+            connectForm cForm = new connectForm();
+            cForm.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -114,8 +100,38 @@ namespace WanganSuperhighway
                     Application.Exit();
                 }
             }
-            
-            // TODO: add code that talks to database
+
+            var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+            var client = new MongoClient(connectionString);
+
+            IMongoDatabase db = client.GetDatabase("wangansuperhighway");
+            IMongoCollection<BsonDocument> collection = db.GetCollection<BsonDocument>("servers");
+            var resultDoc = collection.Find(new BsonDocument()).ToList();
+            foreach (var item in resultDoc)
+            {
+                string name = item.GetElement("name").Value.ToString();
+                string players = item.GetElement("players").Value.ToString();
+                string networkID = item.GetElement("networkID").Value.ToString();
+                gameInstance gameServer = new gameInstance();
+                gameServer.GameName = name;
+                gameServer.NetworkId = networkID;
+                serverList.Add(gameServer);
+                listBoxServerBrowser.Items.Add(name.PadRight(20) + players.PadRight(16) + networkID.PadRight(26));
+            }
+        }
+
+        private void listBoxServerBrowser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                selName = serverList[listBoxServerBrowser.SelectedIndex - 1].GameName;
+                selId = serverList[listBoxServerBrowser.SelectedIndex - 1].NetworkId;
+                Console.WriteLine(selName + selId);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
