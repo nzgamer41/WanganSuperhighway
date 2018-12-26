@@ -1,0 +1,11 @@
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\bin\Debug\WanganSuperhighway.exe.config
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\bin\Debug\WanganSuperhighway.exe
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\bin\Debug\WanganSuperhighway.pdb
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.csprojAssemblyReference.cache
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.Form1.resources
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.Properties.Resources.resources
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.csproj.GenerateResource.cache
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.csproj.CoreCompileInputs.cache
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.exe
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.pdb
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.settingsForm.resources
