@@ -75,5 +75,23 @@ namespace WanganSuperhighway
             settingsForm sForm = new settingsForm();
             sForm.Show();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (!File.Exists("C:\\Program Files (x86)\\ZeroTier\\One\\zerotier-cli.bat"))
+            {
+                DialogResult dialogResult = MessageBox.Show("ZeroTier One is not installed! This is a required component for the multiplayer to work, do you want to install it?", "ZeroTier Check", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start("https://www.zerotier.com/download.shtml");
+                    Application.Exit();
+                }
+                if (dialogResult == DialogResult.No)
+                {
+                    Application.Exit();
+                }
+            }
+
+        }
     }
 }
