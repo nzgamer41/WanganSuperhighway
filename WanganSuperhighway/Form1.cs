@@ -62,7 +62,8 @@ namespace WanganSuperhighway
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            
+            createServerForm cForm = new createServerForm();
+            cForm.Show();
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)

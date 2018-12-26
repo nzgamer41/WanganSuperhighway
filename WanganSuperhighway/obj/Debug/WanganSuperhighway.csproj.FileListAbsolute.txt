@@ -9,3 +9,4 @@ C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug
 C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.exe
 C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.pdb
 C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.settingsForm.resources
+C:\Users\Alex Cheer\source\repos\WanganSuperhighway\WanganSuperhighway\obj\Debug\WanganSuperhighway.createServerForm.resources
