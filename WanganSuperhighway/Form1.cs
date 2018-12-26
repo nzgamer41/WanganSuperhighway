@@ -75,8 +75,26 @@ namespace WanganSuperhighway
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
+            int currentPlayers = int.Parse(serverList[listBoxServerBrowser.SelectedIndex - 1].Players);
+            currentPlayers++;
+            var connectionString = "mongodb://wgsh2:wmmt5dx+@ds263590.mlab.com:63590/wangansuperhighway";
+            var client = new MongoClient(connectionString);
+
+            IMongoDatabase db = client.GetDatabase("wangansuperhighway");
+            IMongoCollection<BsonDocument> collection = db.GetCollection<BsonDocument>("servers");
+
+
+            var filter = Builders<BsonDocument>.Filter.Eq("networkID", selId);
+            var update = Builders<BsonDocument>.Update.Set("players", currentPlayers.ToString());
+            var result = collection.UpdateOne(filter, update);
+            
+            
             connectForm cForm = new connectForm();
             cForm.ShowDialog();
+            currentPlayers--;
+            filter = Builders<BsonDocument>.Filter.Eq("networkID", selId);
+            update = Builders<BsonDocument>.Update.Set("players", currentPlayers.ToString());
+            result = collection.UpdateOne(filter, update);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -115,6 +133,7 @@ namespace WanganSuperhighway
                 gameInstance gameServer = new gameInstance();
                 gameServer.GameName = name;
                 gameServer.NetworkId = networkID;
+                gameServer.Players = players;
                 serverList.Add(gameServer);
                 listBoxServerBrowser.Items.Add(name.PadRight(20) + players.PadRight(16) + networkID.PadRight(26));
             }

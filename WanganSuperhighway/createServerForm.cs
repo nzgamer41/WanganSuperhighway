@@ -10,12 +10,17 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using System.Net.NetworkInformation;
+using System.Xml.Linq;
+using System.IO;
 
 namespace WanganSuperhighway
 {
     public partial class createServerForm : Form
     {
         bool gameStart = false;
+        string gameIP;
+        string folder;
         public createServerForm()
         {
             InitializeComponent();
@@ -32,9 +37,21 @@ namespace WanganSuperhighway
             Process proc = new Process();
             proc.StartInfo.FileName = fileName;
             proc.StartInfo.Arguments = commandLine;
-            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.UseShellExecute = true;
             proc.StartInfo.Verb = "runas";
             proc.Start();
+        }
+
+        public void startTP(string fileName, string commandLine)
+        {
+            Process proc = new Process();
+            proc.StartInfo.FileName = fileName;
+            proc.StartInfo.Arguments = commandLine;
+            proc.StartInfo.UseShellExecute = true;
+            proc.StartInfo.Verb = "runas";
+            proc.StartInfo.WorkingDirectory = folder;
+            proc.Start();
+            proc.WaitForExit();
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
@@ -60,10 +77,12 @@ namespace WanganSuperhighway
                     {
                     {"name", BsonValue.Create(textBoxGameName.Text)},
                     {"players", new BsonString("1")},
-                    {"networkID", new BsonString(textBoxNetworkId.Text)}
+                    {"networkID", new BsonString(textBoxNetworkId.Text)},
                     };
                     collection.InsertOne(document);
-
+                    
+                    
+                        
                     string command = "join " + textBoxNetworkId.Text;
                     ExecuteAsAdmin("C:\\Program Files (x86)\\ZeroTier\\One\\zerotier-cli.bat", command);
                 }
@@ -75,10 +94,12 @@ namespace WanganSuperhighway
             textBoxGameName.ReadOnly = true;
             buttonCreate.Visible = false;
             buttonStart.Enabled = true;
+            
             gameStart = true;
-            listBox1.Items.Add(Form1.username);            
+
             }
         }
+
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -92,7 +113,7 @@ namespace WanganSuperhighway
 
 
                 var filter = Builders<BsonDocument>.Filter.Eq("networkID", textBoxNetworkId.Text);
-                var result = collection.DeleteOne(filter);
+                var result = collection.DeleteMany(filter);
 
 
                 gameStart = false;
@@ -104,6 +125,45 @@ namespace WanganSuperhighway
             {
                 this.Close();
             }
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        { }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                {
+                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork && (ip.Address.ToString().StartsWith("192.168.191") || ip.Address.ToString().StartsWith("192.168.192") || ip.Address.ToString().StartsWith("192.168.193") || ip.Address.ToString().StartsWith("192.168.194") || ip.Address.ToString().StartsWith("192.168.195") || ip.Address.ToString().StartsWith("192.168.196")))
+                        {
+                            Console.WriteLine(ip.Address.ToString());
+                            gameIP = ip.Address.ToString();
+                        }
+                    }
+                }
+            }
+            string tpLocationn = Form1.tpLocation;
+            folder = tpLocationn.Replace("TeknoParrotUi.exe", "");
+            XDocument objDoc = XDocument.Load(folder + "UserProfiles\\WMMT5.xml");
+            foreach (var el in objDoc.Descendants("FieldInformation"))
+            {
+                var command_name = el.Element("FieldName").Value;
+                if (command_name.ToUpper().Equals("NETWORKADAPTERIP"))
+                {
+                    el.Element("FieldValue").ReplaceNodes(gameIP);
+                }
+                if (command_name.ToUpper().Equals("TERMINALEMULATOR"))
+                {
+                    el.Element("FieldValue").ReplaceNodes("1");
+                }
+            }
+            objDoc.Save(folder + "UserProfiles\\WMMT5.xml");
+            startTP(Form1.tpLocation, "--profile=WMMT5.xml");
+            buttonCancel_Click(sender, e);
         }
     }
 }
